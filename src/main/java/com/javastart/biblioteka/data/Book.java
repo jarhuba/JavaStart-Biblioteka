@@ -1,21 +1,11 @@
 package com.javastart.biblioteka.data;
 
-public class Book {
+public class Book extends Publication {
 
-    private String title;
     private String author;
-    private int releaseDate;
     private int pages;
-    private String publisher;
     private String isbn;
 
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getAuthor() {
         return this.author;
@@ -25,13 +15,6 @@ public class Book {
         this.author = author;
     }
 
-    public int getReleaseDate() {
-        return this.releaseDate;
-    }
-
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
-    }
 
     public int getPages() {
         return this.pages;
@@ -41,34 +24,31 @@ public class Book {
         this.pages = pages;
     }
 
-    public String getPublisher() {
-        return this.publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
 
     public String getIsbn() {
         return this.isbn;
     }
 
-    public Book(String title, String author, int releaseDate, int pages, String publisher, String isbn) {
-        this.title = title;
-        this.author = author;
-        this.releaseDate = releaseDate;
-        this.pages = pages;
-        this.publisher = publisher;
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    public Book(String title, String author, int year, int pages, String publisher, String isbn) {
+        this.setTitle(title);
+        this.setAuthor(author);
+        this.setYear(year);
+        this.setPages(pages);
+        this.setPublisher(publisher);
+        this.setIsbn(isbn);
+    }
+
     public Book(Book book) {
-        this(book.getTitle(), book.getAuthor(), book.getReleaseDate(), book.getPages(), book
+        this(book.getTitle(), book.getAuthor(), book.getYear(), book.getPages(), book
                 .getPublisher(), book.getIsbn());
     }
 
     public void printInfo() {
-        String info = "Tytuł: " + getTitle() + "; Autor: " + getAuthor() + "; Release Date: " + getReleaseDate() + "; Pages: " + getPages()
+        String info = "Tytuł: " + getTitle() + "; Autor: " + getAuthor() + "; Release Year: " + getYear() + "; Pages: " + getPages()
                 + "; Publisher: " + getPublisher() + "; ISBN: " + getIsbn();
         System.out.println(info);
     }
