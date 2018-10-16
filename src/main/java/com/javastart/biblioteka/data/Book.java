@@ -68,7 +68,8 @@ public class Book {
     }
 
     public void printInfo() {
-        String info = getTitle() + "; " + getAuthor() + "; " + getReleaseDate() + "; " + getPages() + "; " + getPublisher() + "; " + getIsbn();
+        String info = "Tytuł: " + getTitle() + "; Autor: " + getAuthor() + "; Release Date: " + getReleaseDate() + "; Pages: " + getPages()
+                + "; Publisher: " + getPublisher() + "; ISBN: " + getIsbn();
         System.out.println(info);
     }
 }

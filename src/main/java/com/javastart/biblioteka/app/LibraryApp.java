@@ -3,23 +3,12 @@ package com.javastart.biblioteka.app;
 import com.javastart.biblioteka.data.Book;
 import com.javastart.biblioteka.utils.DataReader;
 
-public class Library {
+public class LibraryApp {
 
     public static void main(String[] args) {
-        final String appName = "Biblioteka v0.6";
-
-        Book[] books = new Book[1000];
-        DataReader dataReader = new DataReader();
-
+        final String appName = "Biblioteka v0.7";
         System.out.println(appName);
-        System.out.println("Wprowadź nową książkę: ");
-        books[0] = dataReader.readAndCreateBook();
-        books[1] = dataReader.readAndCreateBook();
-        dataReader.close();
-
-        books[0].printInfo();
-        books[1].printInfo();
-
-        System.out.println("System może przechowywać do " + books.length + " książek");
+        LibraryControl libControl = new LibraryControl();
+        libControl.controlLoop();
     }
 }
