@@ -7,9 +7,9 @@ import com.javastart.biblioteka.utils.DataReader;
 public class LibraryControl {
 
     // zmienne do kontrolowania programu
-    public final int exit = 0;
-    public final int addBook = 1;
-    public final int printBooks = 2;
+    public static final int EXIT = 0;
+    public static final int ADD_BOOK = 1;
+    public static final int PRINT_BOOKS = 2;
 
     // zmienna do komunikacji z użytkownikiem
     private DataReader dataReader;
@@ -28,12 +28,12 @@ public class LibraryControl {
     public void controlLoop() {
         int option;
         printOptions();
-        while ((option = dataReader.getInt()) != exit) {
+        while ((option = dataReader.getInt()) != EXIT) {
             switch (option) {
-                case addBook:
+                case ADD_BOOK:
                     addBook();
                     break;
-                case printBooks:
+                case PRINT_BOOKS:
                     printBooks();
                     break;
                 default:
@@ -47,9 +47,9 @@ public class LibraryControl {
 
     private void printOptions() {
         System.out.println("Wybierz opcję: ");
-        System.out.println("0 - wyjście z programu");
-        System.out.println("1 - dodanie nowej książki");
-        System.out.println("2 - wyświetl dostępne książki");
+        System.out.println(EXIT + " - wyjście z programu");
+        System.out.println(ADD_BOOK + " - dodanie nowej książki");
+        System.out.println(PRINT_BOOKS + " - wyświetl dostępne książki");
     }
 
     private void addBook() {
