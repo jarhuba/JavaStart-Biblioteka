@@ -35,37 +35,37 @@ public class LibraryControl {
     /*
      * Główna pętla programu, która poawala na wybór programu i interakcję
      */
-    public void controlLoop() {
-
-        Option option = null;
-        while (option != Option.EXIT) {
-            try {
-                printOptions();
-                option = Option.createFromInt(dataReader.getInt());
-                switch (option) {
-                    case ADD_BOOK:
-                        addBook();
-                        break;
-                    case ADD_MAGAZINE:
-                        addMagazine();
-                        break;
-                    case PRINT_BOOKS:
-                        printBooks();
-                        break;
-                    case PRINT_MAGAZINES:
-                        printMagazines();
-                        break;
-                    case EXIT:
-                        exit();
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
-            } catch (NumberFormatException | NoSuchElementException e) {
-                System.out.println("Wybrana opcja nie istnieje, wybierz ponownie:");
+    public void controlLoop(Option option) {
+        printOptions();
+        try {
+            option = Option.createFromInt(dataReader.getInt());
+            switch (option) {
+                case ADD_BOOK:
+                    addBook();
+                    break;
+                case ADD_MAGAZINE:
+                    addMagazine();
+                    break;
+                case PRINT_BOOKS:
+                    printBooks();
+                    break;
+                case PRINT_MAGAZINES:
+                    printMagazines();
+                    break;
+                case EXIT:
+                    exit();
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
+        } catch (NumberFormatException | NoSuchElementException e) {
+            System.out.println("Wybrana opcja nie istnieje, wybierz ponownie:");
         }
-// zamykamy strumień wejścia
-        dataReader.close();
+        if (option == Option.EXIT) {
+            // zamykamy strumień wejścia
+            dataReader.close();
+        } else {
+            controlLoop(option);
+        }
     }
 
     private void printOptions() {
