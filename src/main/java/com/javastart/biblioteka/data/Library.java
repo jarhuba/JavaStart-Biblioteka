@@ -1,7 +1,10 @@
 package com.javastart.biblioteka.data;
 
-public class Library {
+import java.io.Serializable;
 
+public class Library implements Serializable {
+
+    private static final long serialVersionUID = 2995794334600947814L;
     public static final int MAX_PUBLICATIONS = 2000;
     private Publication[] publications;
     private int publicationsNumber;

@@ -1,9 +1,11 @@
 package com.javastart.biblioteka.data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Publication {
+public abstract class Publication implements Serializable {
 
+    private static final long serialVersionUID = 7910452641164094454L;
     private int year;
     private String title;
     private String publisher;
