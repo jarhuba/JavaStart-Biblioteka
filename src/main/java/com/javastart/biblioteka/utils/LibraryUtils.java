@@ -6,56 +6,26 @@ import java.util.*;
 
 public class LibraryUtils {
     public static void printBooks(Library lib) {
-        //ZMIANA
-        List<Publication> publications = new ArrayList<>();
-        publications.addAll(lib.getPublications().values());
-        //DODANE
-        Collections.sort(publications, new Library.AlphabeticalComparator());
-        int countBooks = 0;
-        for (Publication p : publications) {
-            if (p instanceof Book) {
-                System.out.println(p);
-                countBooks++;
-            }
-        }
-
-        if (countBooks == 0) {
-            System.out.println("Brak książek w bibliotece");
-        }
+        printPublications(lib, Book.class);
     }
 
     public static void printMagazines(Library lib) {
-        //ZMIANA
-        List<Publication> publications = new ArrayList<>();
-        publications.addAll(lib.getPublications().values());
-        //DODANE
-        Collections.sort(publications, new Library.AlphabeticalComparator());
-        int countMagazines = 0;
-        for (Publication p : publications) {
-            if (p instanceof Magazine) {
-                System.out.println(p);
-                countMagazines++;
-            }
-        }
+        printPublications(lib, Magazine.class);
+    }
+
+    private static void printPublications(Library lib, Class cl) {
+        long countMagazines = lib.getPublications().values().stream()
+                .filter(cl::isInstance).sorted(new Library.AlphabeticalComparator())
+                .peek(System.out::println).count();
 
         if (countMagazines == 0) {
-            System.out.println("Brak magazynów w bibliotece");
+            System.out.println("W bibliotece nie znaleziono publikacji typu " + cl.getSimpleName());
         }
     }
 
     public static void printUsers(Library lib) {
-        //ZMIANA
-        List<LibraryUser> users = new ArrayList<>();
-        users.addAll(lib.getUsers().values());
-        //DODANE
-        Collections.sort(users, new Comparator<LibraryUser>() {
-            @Override
-            public int compare(LibraryUser o1, LibraryUser o2) {
-                return o1.getLastName().compareTo(o2.getLastName());
-            }
-        });
-        for (LibraryUser u : users) {
-            System.out.println(u);
-        }
+        lib.getUsers().values().stream()
+                .sorted((a, b) -> a.getLastName().compareTo(b.getLastName()))
+                .forEach(System.out::println);
     }
 }
