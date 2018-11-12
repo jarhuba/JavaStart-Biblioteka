@@ -3,6 +3,7 @@ package com.javastart.biblioteka.utils;
 import java.util.*;
 
 import com.javastart.biblioteka.data.Book;
+import com.javastart.biblioteka.data.LibraryUser;
 import com.javastart.biblioteka.data.Magazine;
 
 public class DataReader {
@@ -81,5 +82,17 @@ public class DataReader {
         }
 
         return new Magazine(title, publisher, language, year, month, day);
+    }
+
+    //DODANE
+    public LibraryUser readAndCreateLibraryUser() {
+        System.out.println("Imię:");
+        String firstName = sc.nextLine();
+        System.out.println("Nazwisko:");
+        String lastName = sc.nextLine();
+        System.out.println("PESEL:");
+        String pesel = sc.nextLine();
+
+        return new LibraryUser(firstName, lastName, pesel);
     }
 }

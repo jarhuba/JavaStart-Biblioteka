@@ -2,6 +2,7 @@ package com.javastart.biblioteka.app;
 
 import com.javastart.biblioteka.data.Book;
 import com.javastart.biblioteka.data.Library;
+import com.javastart.biblioteka.data.LibraryUser;
 import com.javastart.biblioteka.data.Magazine;
 import com.javastart.biblioteka.utils.DataReader;
 import com.javastart.biblioteka.utils.FileManager;
@@ -36,9 +37,9 @@ public class LibraryControl {
      * Główna pętla programu, która poawala na wybór programu i interakcję
      */
     public void controlLoop() {
-
         Option option = null;
         while (option != Option.EXIT) {
+
             try {
                 printOptions();
                 option = Option.createFromInt(dataReader.getInt());
@@ -55,6 +56,13 @@ public class LibraryControl {
                     case PRINT_MAGAZINES:
                         printMagazines();
                         break;
+                    //DODANE
+                    case ADD_USER:
+                        addUser();
+                        break;
+                    case PRINT_USERS:
+                        printUsers();
+                        break;
                     case EXIT:
                         exit();
                 }
@@ -64,7 +72,7 @@ public class LibraryControl {
                 System.out.println("Wybrana opcja nie istnieje, wybierz ponownie:");
             }
         }
-// zamykamy strumień wejścia
+        // zamykamy strumień wejścia
         dataReader.close();
     }
 
@@ -93,6 +101,17 @@ public class LibraryControl {
         LibraryUtils.printMagazines(library);
     }
 
+    //DODANE
+    private void addUser() {
+        LibraryUser user = dataReader.readAndCreateLibraryUser();
+        library.addUser(user);
+    }
+
+    //DODANE
+    private void printUsers() {
+        LibraryUtils.printUsers(library);
+    }
+
     private void exit() {
         fileManager.writeLibraryToFile(library);
     }
@@ -102,7 +121,11 @@ public class LibraryControl {
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2, "Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
+        //DODANE
+        ADD_USER(5, "Dodanie nowego użytkownika"),
+        PRINT_USERS(6, "Wyświetlenie listy użtrkowników");
+
 
         private int value;
         private String description;

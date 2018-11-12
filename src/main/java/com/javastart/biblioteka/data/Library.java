@@ -3,26 +3,41 @@ package com.javastart.biblioteka.data;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
-
     private static final long serialVersionUID = 2995794334600947814L;
 
-    public static final int INITIAL_CAPACITY = 1;
-    private Publication[] publications;
-    private int publicationsNumber;
+    //ZMIENIONY TYP
+    private Map<String, Publication> publications;
+    //DODANE
+    private Map<String, LibraryUser> users;
 
+    //zwracamy rozmiar mapy
+    public int getPublicationsNumber() {
+        return publications.size();
+    }
 
-    public Publication[] getPublications() {
+    //ZMIENIONY TYP
+    public Map<String, Publication> getPublications() {
         return publications;
     }
 
-    public int getPublicationsNumber() {
-        return publicationsNumber;
+    //DODANY GETTER
+    public Map<String, LibraryUser> getUsers() {
+        return users;
     }
 
+    public static final int INITIAL_CAPACITY = 1;
+    private int publicationsNumber;
+
+
     public Library() {
-        publications = new Publication[INITIAL_CAPACITY];
+        //ZMIENIONY TYP
+        publications = new HashMap<>();
+        //DODANE
+        users = new HashMap<>();
     }
 
     public void addBook(Book book) {
@@ -33,42 +48,30 @@ public class Library implements Serializable {
         addPublication(magazine);
     }
 
-
-     private void removePublication(Publication pub) {
-         if (pub == null)
-             return;
-
-         final int NOT_FOUND = -1;
-         int found = NOT_FOUND;
-         int i = 0;
-
-         while (i < publications.length && found == NOT_FOUND) {
-             if (pub.equals(publications[i])) {
-                 found = i;
-             } else {
-                 i++;
-             }
-         }
-         if (found != NOT_FOUND) {
-             System.arraycopy(publications, found + 1, publications, found, publications.length - found - 1);
-             publicationsNumber--;
-         }
-     }
-
-    private void addPublication(Publication pub) throws ArrayIndexOutOfBoundsException {
-        if (publicationsNumber == publications.length) {
-            publications = Arrays.copyOf(publications, publications.length * 2);
-        }
-
-        publications[publicationsNumber] = pub;
-        publicationsNumber++;
+    //DODANE
+    public void addUser(LibraryUser user) {
+        users.put(user.getPesel(), user);
     }
 
+    //ZMIENIONA LOGIKA
+    public void removePublication(Publication pub) {
+        if (publications.containsValue(pub)) {
+            publications.remove(pub.getTitle());
+        }
+    }
+
+    //ZMIENIONA LOGIKA I USUNIĘCIE ZWRACANEGO WYJĄTKU
+    private void addPublication(Publication pub) {
+        publications.put(pub.getTitle(), pub);
+    }
+
+
+    //ZMIENIONA LOGIKA PĘTLI
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < publicationsNumber; i++) {
-            builder.append(publications[i]);
+        for (Publication p : publications.values()) {
+            builder.append(p);
             builder.append("\n");
         }
         return builder.toString();
