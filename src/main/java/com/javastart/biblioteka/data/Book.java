@@ -1,11 +1,12 @@
 package com.javastart.biblioteka.data;
 
+import java.util.Objects;
+
 public class Book extends Publication {
 
     private String author;
     private int pages;
     private String isbn;
-
 
     public String getAuthor() {
         return this.author;
@@ -15,7 +16,6 @@ public class Book extends Publication {
         this.author = author;
     }
 
-
     public int getPages() {
         return this.pages;
     }
@@ -23,7 +23,6 @@ public class Book extends Publication {
     public void setPages(int pages) {
         this.pages = pages;
     }
-
 
     public String getIsbn() {
         return this.isbn;
@@ -40,14 +39,26 @@ public class Book extends Publication {
         this.setIsbn(isbn);
     }
 
-    public Book(Book book) {
-        this(book.getTitle(), book.getAuthor(), book.getYear(), book.getPages(), book
-                .getPublisher(), book.getIsbn());
+    @Override
+    public String toString() {
+        return getTitle() + "; " + getAuthor() + "; " + getYear() + "; " + getPages()
+                + "; " + getPublisher() + "; " + getIsbn();
     }
 
-    public void printInfo() {
-        String info = "Tytuł: " + getTitle() + "; Autor: " + getAuthor() + "; Release Year: " + getYear() + "; Pages: " + getPages()
-                + "; Publisher: " + getPublisher() + "; ISBN: " + getIsbn();
-        System.out.println(info);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Book book = (Book) o;
+        return pages == book.pages &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(isbn, book.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), author, pages, isbn);
     }
 }
